@@ -1,5 +1,5 @@
 {
-  "name": "user-microservice",
+  "name": "task-microservice",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
