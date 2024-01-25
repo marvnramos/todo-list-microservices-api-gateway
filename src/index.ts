@@ -1,5 +1,5 @@
 import express from 'express';
-import connectDB from './shared/index';
+// import connectDB from './shared/index';
 import "dotenv/config";
 
 const app = express();
@@ -9,5 +9,5 @@ app.disable("x-powered-by");
 
 
 
-connectDB();
+// connectDB();
 app.listen(process.env.PORT, ()=>{console.log(`♿ Server is running on: http://localhost:${process.env.PORT}`)});
