@@ -14,4 +14,4 @@ app.use("/users", userRoute);
 connectDB();
 
 const port: number = Number(process.env.USER_PORT) || 3000;
-app.listen(port, ()=>{ console.log(`🧸 User service running on: http://localhost:${port}`)})
+app.listen(port, ()=>{ console.log(`🧸 User server running on: http://localhost:${port}`)})
