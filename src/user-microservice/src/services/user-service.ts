@@ -1,31 +1,36 @@
-import userModel  from "../models/user-model";
-import { Request, Response } from "express";
-// import bcrypt from "bcryptjs";
+import User  from "../models/user-model";
+import { Request } from "express";
+import Crypto from "../utils/crypto";
 
-const userService = {
-    async create(req: Request){
-        // const { password } = req.body;
+class userService {
+    static async create(body: Request["body"]): Promise<{ message: string; user: object; }>{
+        try {
+            const { password } = body;
+            body.password = Crypto.encrypt(password);
+            
+            const user = new User(body);
+            await user.save();
+            
+            return {
+              message: "User created successfully",
+              user: user,
+            };
 
-        // const salt:string = bcrypt.genSaltSync(10);
-		// const hash:string = bcrypt.hashSync(password, salt);
+          } catch (error) {
+            console.error(error);
+            throw error; // Propagacion de error
+          }
+    }
 
-        // req.body.password = hash;
+    static async logIn(req: Request, res: Response){
 
-        const user = await userModel.create(req.body)
+    }
 
-        return { 
-            error: false,
-            message: `User created successfully 🥵\n${user}`
-        };
+    static async update(req: Request, res: Response){
 
-    },
-    async logIn(req: Request, res: Response){
+    }
 
-    },
-    async update(req: Request, res: Response){
-
-    },
-    async delete(req: Request, res: Response){
+    static async delete(req: Request, res: Response){
 
     }
 }
