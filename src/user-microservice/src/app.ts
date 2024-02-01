@@ -1,5 +1,5 @@
 import express from "express";
-import connectDB from "../../shared/index";
+import connectDB from "./config/mongodb-config";
 import "dotenv/config"
 
 import userRoute from "./routes/user-route";
