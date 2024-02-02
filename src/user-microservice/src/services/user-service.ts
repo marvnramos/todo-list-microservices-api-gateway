@@ -32,7 +32,7 @@ class userService {
           }
     }
 
-    static async logIn(body: Request["body"]): Promise<object> {
+    static async logIn(body: Request["body"]): Promise<{ message: string; token: string; }> {
         try {
             /**
              * Todo:
@@ -53,7 +53,10 @@ class userService {
                 throw new Error("Invalid password");
             }
 
-            return user;
+            return {
+                message: "Loged in! 🧸",
+                token: "jwtoken",
+            };
         } catch (error) {
             console.error(error);
             throw error;
@@ -61,12 +64,31 @@ class userService {
 
     }
 
-    static async update(req: Request, res: Response){
+    static async update(body: Request["body"]): Promise<{ message: string; user: any; }>{
+        try{
+            const { id } = body;
 
+            const user = await User.findOneAndUpdate({ _id: id }, body, { new: true });
+
+            return {
+                message: "User info updated successfully 🥳",
+                user: user,
+              };
+        }catch(error){
+            console.error(error);
+            throw error;
+        }
     }
 
-    static async delete(req: Request, res: Response){
-
+    static async delete(body: Request["body"]): Promise<{ message: string }>{
+        try{
+            const { id } = body;
+            await User.findByIdAndDelete(id);
+            return { message: "User deleted successfully 🥳"};
+        }catch(error){
+            console.error(error);
+            throw error;
+        }
     }
 }
 
