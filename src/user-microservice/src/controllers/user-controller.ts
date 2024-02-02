@@ -14,7 +14,8 @@ class UserController {
     }
     static async logIn(req: Request, res: Response){
         try{
-
+            const user = await userService.logIn(req.body);
+            return res.status(200).json(user);
         }catch(err){
             console.log(err)
             return res.status(500).json({message: "Internal server error"});
