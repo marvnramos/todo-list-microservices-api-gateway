@@ -4,6 +4,7 @@ import com.example.taskmicroservicejava.Models.TaskModel;
 import com.example.taskmicroservicejava.Repositories.TaskRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,6 +22,14 @@ public class TaskService {
             return taskRepository.findAll();
         }catch (Exception e){
             throw new Exception("Error getting tasks! 🥺", e);
+        }
+    }
+
+    public TaskModel createTask(TaskModel task)throws Exception{
+        try{
+            return  taskRepository.save(task);
+        }catch (Exception e){
+            throw new Exception("Error creating task! 🥺", e);
         }
     }
 //    public void createTask(){
