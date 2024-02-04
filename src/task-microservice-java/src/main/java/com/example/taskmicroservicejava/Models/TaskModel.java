@@ -6,6 +6,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -19,6 +21,6 @@ public class TaskModel {
     private String description;
     private String priority;
     private String status;
-    private String dueDate;
+    private Date dueDate;
     private String userId;
 }
