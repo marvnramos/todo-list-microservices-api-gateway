@@ -3,27 +3,34 @@ package com.example.taskmicroservicejava.Controllers;
 import com.example.taskmicroservicejava.Models.TaskModel;
 import com.example.taskmicroservicejava.Services.TaskService;
 import com.example.taskmicroservicejava.Utils.TaskResponse;
-import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/tasks")
-@RequiredArgsConstructor
 public class TaskController {
+    private final TaskService taskService;
+    public TaskController(TaskService taskService) {
+        this.taskService = taskService;
+    }
 
     @GetMapping(path = "/")
     public ResponseEntity<TaskResponse> getTasks(){
-        TaskResponse response = new TaskResponse();
-        TaskModel task = new TaskModel();
+        try{
+            TaskResponse res = new TaskResponse();
+            List<TaskModel> tasks = taskService.getAllTasks();
 
-        response.setMessage("\uD83E\uDD75");
-        response.setTask(task);
+            res.setTask(tasks);
+            res.setMessage("Here you go! 🤓");
 
-        var res = ResponseEntity.ok(response);
-        return res;
+            return ResponseEntity.ok(res);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
     }
 }
