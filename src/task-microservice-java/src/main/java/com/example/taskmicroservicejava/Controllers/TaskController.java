@@ -67,4 +67,19 @@ public class TaskController {
         }
     }
 
+    @DeleteMapping(path = "/delete/{id}")
+    public ResponseEntity<TaskResponse> delete(@PathVariable UUID id) {
+        try {
+            TaskResponse res = new TaskResponse();
+
+            TaskModel deleted = taskService.deleteTask(id);
+
+            res.setTask(deleted);
+            res.setMessage("Task deleted successfully! 🧸");
+            return ResponseEntity.ok(res);
+        } catch (Exception e) {
+            System.out.println(e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

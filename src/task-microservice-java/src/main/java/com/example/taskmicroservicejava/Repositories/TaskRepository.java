@@ -8,4 +8,5 @@ import java.util.UUID;
 
 public interface TaskRepository extends JpaRepository<TaskModel, Long> {
     Optional<TaskModel> findById(UUID id);
+
 }

@@ -8,6 +8,7 @@ import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class TaskService {
@@ -30,6 +31,17 @@ public class TaskService {
             return  taskRepository.save(task);
         }catch (Exception e){
             throw new Exception("Error creating task! 🥺", e);
+        }
+    }
+    public TaskModel deleteTask(UUID id)throws  Exception{
+        try{
+            TaskModel taskToDelete = taskRepository.findById(id)
+                    .orElseThrow(() -> new RuntimeException("Task not found! 😨 Id: " + id));
+
+            taskRepository.delete(taskToDelete);
+            return taskToDelete;
+        }catch (Exception e){
+            throw new Exception("Error deleting task! 😨");
         }
     }
 
