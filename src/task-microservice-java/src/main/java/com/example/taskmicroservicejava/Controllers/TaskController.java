@@ -5,9 +5,11 @@ import com.example.taskmicroservicejava.Services.TaskService;
 import com.example.taskmicroservicejava.Utils.TaskResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.config.Task;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/tasks")
@@ -46,4 +48,23 @@ public class TaskController {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
+
+    @PatchMapping(path ="/{id}")
+    public ResponseEntity<TaskResponse> update(@PathVariable UUID id, @RequestBody TaskModel task){
+        try{
+            TaskResponse res = new TaskResponse();
+            task.setId(id);
+
+            TaskModel updated = taskService.updateTask(task);
+
+            res.setTask(updated);
+            res.setMessage("Task updated successfully! 🥳");
+
+            return ResponseEntity.ok(res);
+        }catch (Exception e){
+            System.out.println(e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
 }
