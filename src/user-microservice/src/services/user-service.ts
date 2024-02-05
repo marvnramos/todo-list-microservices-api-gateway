@@ -1,6 +1,8 @@
 import User  from "../models/user-model";
 import { Request } from "express";
 import Crypto from "../utils/crypto";
+import BodyAuth  from "../interfaces/AuthPayload-interface";
+import generateToken from "../utils/jwt";
 
 class userService {
     static async create(body: Request["body"]): Promise<{ message: string; user: object; }>{
@@ -44,6 +46,12 @@ class userService {
             const { email, password } = body;
             const user = await User.findOne({ email });
 
+            const id:any = user?.id;            
+            const authBody:BodyAuth = {
+                id: id,
+                loged: true
+            };
+            
             if (!user) {
                 throw new Error("User not found");
             }
@@ -53,9 +61,11 @@ class userService {
                 throw new Error("Invalid password");
             }
 
+            const token:any = await generateToken(authBody);
+
             return {
                 message: "Loged in! 🧸",
-                token: "jwtoken",
+                token: token,
             };
         } catch (error) {
             console.error(error);
