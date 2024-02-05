@@ -1,18 +1,24 @@
 package com.example.taskmicroservicejava.Controllers;
 
 import com.example.taskmicroservicejava.Models.TaskModel;
+import com.example.taskmicroservicejava.Repositories.TaskRepository;
 import com.example.taskmicroservicejava.Services.TaskService;
 import com.example.taskmicroservicejava.Utils.TaskResponse;
+import jakarta.persistence.GeneratedValue;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.config.Task;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 @RestController
 @RequestMapping(path = "/tasks")
 public class TaskController {
     private final TaskService taskService;
+    private TaskRepository taskRepository;
     public TaskController(TaskService taskService) {
         this.taskService = taskService;
     }
@@ -21,6 +27,7 @@ public class TaskController {
     public ResponseEntity<TaskResponse> getTasks(){
         try{
             TaskResponse res = new TaskResponse();
+
             List<TaskModel> tasks = taskService.getAllTasks();
 
             res.setTasks(tasks);
@@ -43,6 +50,26 @@ public class TaskController {
 
             return ResponseEntity.ok(res);
         }catch (Exception e){
+            System.out.println(e.toString());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+    @PatchMapping(path = "/{id}")
+    public ResponseEntity<TaskResponse> edit(@PathVariable("id") UUID id, @RequestBody TaskModel task) {
+        try {
+             TaskResponse res = new TaskResponse();
+
+             task.setId(id);
+             var editedTask = taskService.updateTask(task);
+
+             res.setTask(editedTask);
+             res.setMessage("Task updated successfully! 🥳" );
+
+             return ResponseEntity.ok(res);
+
+
+        } catch (Exception e) {
+            System.out.println(e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

@@ -2,9 +2,7 @@ package com.example.taskmicroservicejava.Services;
 
 import com.example.taskmicroservicejava.Models.TaskModel;
 import com.example.taskmicroservicejava.Repositories.TaskRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -32,14 +30,29 @@ public class TaskService {
             throw new Exception("Error creating task! 🥺", e);
         }
     }
-//    public void createTask(){
-//        TaskModel task = TaskModel.builder()
-//                .description("uwu")
-//                .priority("uwu")
-//                .status("uwu")
-//                .dueDate("")
-//                .userId("uwu")
-//                .build();
-//        taskRepository.save(task);
-//    }
+
+    public TaskModel updateTask(TaskModel task) throws Exception {
+        try {
+
+            TaskModel existingTask = taskRepository.findById(task.getId())
+                    .orElseThrow(()-> new RuntimeException("Task not found! 😨"));
+
+            if(task.getDescription() != null && !task.getDescription().isEmpty())
+                existingTask.setDescription(task.getDescription());
+
+            if(task.getStatus() != null && !task.getStatus().isEmpty())
+                existingTask.setStatus(task.getStatus());
+
+            if(task.getPriority() != null && !task.getPriority().isEmpty())
+                existingTask.setPriority(task.getPriority());
+
+            if(task.getDueDate() != null)
+                existingTask.setDueDate(task.getDueDate());
+
+            return taskRepository.save(existingTask);
+        } catch (Exception e) {
+            throw new Exception("Error updating task! 🥺", e);
+        }
+    }
+
 }
