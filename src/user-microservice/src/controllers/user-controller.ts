@@ -24,6 +24,9 @@ class UserController {
     }
     static async update(req: Request, res: Response){
         try{
+            const id = req.params.id;
+            req.body.id = id;
+            
             const user = await userService.update(req.body);
             return res.status(200).json(user);
         }catch(err){
