@@ -3,9 +3,12 @@ package com.example.taskmicroservicejava.Services;
 import com.example.taskmicroservicejava.Models.TaskModel;
 import com.example.taskmicroservicejava.Repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
+import org.yaml.snakeyaml.events.Event;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -21,6 +24,13 @@ public class TaskService {
             return taskRepository.findAll();
         }catch (Exception e){
             throw new Exception("Error getting tasks! 🥺", e);
+        }
+    }
+    public TaskModel getTaskById(UUID id)throws Exception{
+        try {
+            return taskRepository.getById(id);
+        }catch (Exception e){
+            throw new Exception("Error getting task! 😭");
         }
     }
 

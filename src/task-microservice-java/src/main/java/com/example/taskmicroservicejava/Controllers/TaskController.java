@@ -5,9 +5,11 @@ import com.example.taskmicroservicejava.Services.TaskService;
 import com.example.taskmicroservicejava.Utils.TaskResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.config.Task;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -29,6 +31,23 @@ public class TaskController {
 
             return ResponseEntity.ok(res);
         }catch (Exception e){
+            System.out.println(e);
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
+    @GetMapping(path = "/{id}")
+    public ResponseEntity<TaskResponse> getTask(@PathVariable UUID id){
+        try{
+            TaskResponse res = new TaskResponse();
+            TaskModel task = taskService.getTaskById(id);
+
+            res.setTask(task);
+            res.setMessage("Here you go! 🍑");
+
+            return ResponseEntity.ok(res);
+        }catch (Exception e){
+            System.out.println(e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -44,11 +63,12 @@ public class TaskController {
 
             return ResponseEntity.ok(res);
         }catch (Exception e){
+            System.out.println(e);
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
 
-    @PatchMapping(path ="/{id}")
+    @PatchMapping(path ="/update/{id}")
     public ResponseEntity<TaskResponse> update(@PathVariable UUID id, @RequestBody TaskModel task){
         try{
             TaskResponse res = new TaskResponse();
