@@ -3,7 +3,6 @@ import userRoutes from './routes/user-route';
 import taskRoutes from './routes/task-route';
 import connectDB from './config/mongodb-config';
 import "dotenv/config";
-// import axios from 'axios';
 
 
 const app = express();
