@@ -34,7 +34,27 @@ class UserController {
     }
     static async delete(req: Request, res: Response){
         try{
-            const user = await userService.delete(req.body);
+            const id = req.params.id;
+            const user = await userService.delete(id);
+            return res.status(200).json(user);
+        }catch(err){
+            console.log(err)
+            return res.status(500).json({message: "Internal server error"});
+        }
+    }
+    static async getAllUsers(req: Request, res: Response){
+        try{
+            const users = await userService.getAllUsers();
+            return res.status(200).json(users);
+        }catch(err){
+            console.log(err)
+            return res.status(500).json({message: "Internal server error"});
+        }
+    }
+    static async getUserById(req: Request, res: Response){
+        try{
+            const id = req.params.id;
+            const user = await userService.getUserById(id);
             return res.status(200).json(user);
         }catch(err){
             console.log(err)

@@ -80,11 +80,29 @@ class userService {
         }
     }
 
-    static async delete(body: Request["body"]): Promise<{ message: string }>{
+    static async delete(id: String): Promise<{ message: string }>{
         try{
-            const { id } = body;
             await User.findByIdAndDelete(id);
             return { message: "User deleted successfully 🥳"};
+        }catch(error){
+            console.error(error);
+            throw error;
+        }
+    }
+
+    static async getAllUsers(): Promise<{ message: string; users: any; }>{
+        try{
+            const users = await User.find();
+            return { message: "Users found successfully 🥳", users: users};
+        }catch(error){
+            console.error(error);
+            throw error;
+        }
+    }
+    static async getUserById(id: String): Promise<{ message: string; user: any; }>{
+        try{
+            const user = await User.findById(id);
+            return { message: "User found successfully 🥳", user: user};
         }catch(error){
             console.error(error);
             throw error;

@@ -5,11 +5,10 @@ const router: Router = Router();
 
 // Registro de usuario
 router.post("/", userController.create);
-// Inicio de sesión
 router.post("/login", userController.logIn);
-// Actualizar datos
 router.patch("/edit", userController.update);
-// Eliminar datos de usuario
-router.delete("/delete", userController.delete);
+router.delete("/delete/:id", userController.delete);
+router.get("/getAll", userController.getAllUsers);
+router.get("/get/:id", userController.getUserById);
 
 export default router;
