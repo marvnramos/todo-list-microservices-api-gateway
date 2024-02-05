@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.Date;
-import java.util.UUID;
 
 @Data
 @Builder
@@ -18,7 +17,7 @@ import java.util.UUID;
 public class TaskModel {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID Id;
+    private String Id;
     private String description;
     private String priority;
     private String status;
