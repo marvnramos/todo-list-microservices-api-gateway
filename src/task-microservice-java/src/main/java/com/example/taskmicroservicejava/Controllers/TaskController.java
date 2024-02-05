@@ -5,7 +5,6 @@ import com.example.taskmicroservicejava.Services.TaskService;
 import com.example.taskmicroservicejava.Utils.TaskResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.config.Task;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

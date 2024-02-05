@@ -2,9 +2,7 @@ package com.example.taskmicroservicejava.Services;
 
 import com.example.taskmicroservicejava.Models.TaskModel;
 import com.example.taskmicroservicejava.Repositories.TaskRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
