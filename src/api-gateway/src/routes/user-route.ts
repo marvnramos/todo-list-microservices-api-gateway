@@ -1,12 +1,15 @@
 import { Router } from "express";
-import UserController from "../controllers/user-controller";
-import "dotenv/config";
+import userController from "../controllers/user-controller";
+import authValidation from "../middlewares/jwt-middleware";
 
-const user = process.env.USER_SERVICE_URL || "http://localhost:3000";
 const router: Router = Router();
 
-router.post("/", UserController.create);
-// router.get("/", UserController.findAll);
+router.post("/", userController.create);
+router.post("/login", userController.login);
+router.patch("/edit/:id", authValidation, userController.update);
+router.delete("/delete/:id", authValidation, userController.delete);
+router.get("/getAll", authValidation,userController.getAllUsers);
+router.get("/get/:id",authValidation, userController.getUserById);
 
 
 export default router;
