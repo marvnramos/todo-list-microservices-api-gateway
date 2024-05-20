@@ -3,12 +3,9 @@ package com.example.taskmicroservicejava.Services;
 import com.example.taskmicroservicejava.Models.TaskModel;
 import com.example.taskmicroservicejava.Repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.scheduling.config.Task;
 import org.springframework.stereotype.Service;
-import org.yaml.snakeyaml.events.Event;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
