@@ -5,11 +5,9 @@ import com.example.taskmicroservicejava.Services.TaskService;
 import com.example.taskmicroservicejava.Utils.TaskResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.config.Task;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @RestController
@@ -31,7 +29,7 @@ public class TaskController {
 
             return ResponseEntity.ok(res);
         }catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -47,7 +45,7 @@ public class TaskController {
 
             return ResponseEntity.ok(res);
         }catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -63,7 +61,7 @@ public class TaskController {
 
             return ResponseEntity.ok(res);
         }catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -81,7 +79,7 @@ public class TaskController {
 
             return ResponseEntity.ok(res);
         }catch (Exception e){
-            System.out.println(e);
+            System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
@@ -97,7 +95,7 @@ public class TaskController {
             res.setMessage("Task deleted successfully! 🧸");
             return ResponseEntity.ok(res);
         } catch (Exception e) {
-            System.out.println(e);
+            System.out.println(e.getMessage());
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
