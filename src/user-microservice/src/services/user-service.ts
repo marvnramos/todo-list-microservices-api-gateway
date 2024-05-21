@@ -1,6 +1,6 @@
 import User  from "../models/user-model";
 import { Request } from "express";
-import Crypto from "../utils/crypto";
+import bcrypt from "bcryptjs";
 import BodyAuth  from "../interfaces/AuthPayload-interface";
 import generateToken from "../utils/jwt";
 
@@ -18,8 +18,9 @@ class userService {
            * 7. Validar que el password tenga al menos un caracter especial
            */
             const { password } = body;
-            body.password = Crypto.encrypt(password);
-            
+            const salt = bcrypt.genSaltSync(10);
+            body.password = bcrypt.hashSync(password, salt);
+
             const user = new User(body);
             await user.save();
             
@@ -56,7 +57,7 @@ class userService {
                 throw new Error("User not found");
             }
 
-            const isPasswordValid = Crypto.compare(password, user.password);
+            const isPasswordValid = bcrypt.compareSync(password, user.password);
             if (!isPasswordValid) {
                 throw new Error("Invalid password");
             }
