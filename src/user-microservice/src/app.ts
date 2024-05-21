@@ -1,12 +1,14 @@
 import express from "express";
 import connectDB from "./config/mongodb-config";
 import "dotenv/config"
+import cors from "cors";
 
 import userRoute from "./routes/user-route";
 
 const app = express();
 
 app.use(express.json());
+app.use(cors());
 app.disable("x-powered-by");
 
 app.use("/users", userRoute);
