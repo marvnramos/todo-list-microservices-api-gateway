@@ -50,6 +50,22 @@ public class TaskController {
         }
     }
 
+    @GetMapping(path = "/user/{userId}")
+    public ResponseEntity<TaskResponse> getTasksByUserId(@PathVariable String userId){
+        try{
+            TaskResponse res = new TaskResponse();
+            List<TaskModel> tasks = taskService.getTasksByUserId(userId);
+
+            res.setTasks(tasks);
+            res.setMessage("Here you go! 🍑");
+
+            return ResponseEntity.ok(res);
+        }catch (Exception e){
+            System.out.println(e.getMessage());
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
+
     @PostMapping(path = "/create")
     public ResponseEntity<TaskResponse> create(@RequestBody TaskModel task){
         try {
