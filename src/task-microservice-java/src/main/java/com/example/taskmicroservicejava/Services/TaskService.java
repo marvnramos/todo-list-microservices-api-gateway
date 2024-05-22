@@ -23,6 +23,15 @@ public class TaskService {
             throw new Exception("Error getting tasks! 🥺", e);
         }
     }
+
+    public List<TaskModel> getTasksByUserId(String userId) throws Exception{
+        try {
+            return taskRepository.getByUserId(userId);
+        }catch (Exception e){
+            throw new Exception("Error getting tasks!", e);
+        }
+    }
+
     public TaskModel getTaskById(UUID id)throws Exception{
         try {
             return taskRepository.getById(id);
