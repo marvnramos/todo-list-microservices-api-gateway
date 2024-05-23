@@ -1,10 +1,23 @@
 import { Request, Response } from "express"
 import userService from '../services/user-service'
+import User from '../models/user-model'
 
 class UserController {
     static async create (req: Request, res: Response){
-        try{            
+        try{    
+            const { email } = req.body;
+
+            const userExists = await User.findOne({ email });
+            if(userExists) {
+                return res.status(400).json({message: "User already exists"});
+            }
+            
             const user = await userService.create(req.body);
+
+            if(user.user){
+                return res.status(400).json(user);
+            }
+
             return res.status(200).json(user);
         } catch(err){
             console.log(err)
