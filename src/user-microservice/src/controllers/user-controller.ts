@@ -13,11 +13,6 @@ class UserController {
             }
             
             const user = await userService.create(req.body);
-
-            if(user.user){
-                return res.status(400).json(user);
-            }
-
             return res.status(200).json(user);
         } catch(err){
             console.log(err)
