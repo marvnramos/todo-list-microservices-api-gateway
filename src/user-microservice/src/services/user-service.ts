@@ -2,7 +2,7 @@ import User  from "../models/user-model";
 import { Request } from "express";
 import bcrypt from "bcryptjs";
 import BodyAuth  from "../interfaces/AuthPayload-interface";
-import generateToken from "../utils/jwt";
+import jwtServise from "../utils/jwt";
 
 class userService {
     static async create(body: Request["body"]): Promise<{ message: string; user: object; }>{
@@ -62,7 +62,7 @@ class userService {
                 throw new Error("Invalid password");
             }
 
-            const token:any = await generateToken(authBody);
+            const token:any = await jwtServise.generateToken(authBody);
 
             return {
                 message: "Loged in! 🧸",
@@ -73,6 +73,18 @@ class userService {
             throw error;
         }
 
+    }
+
+    static async auth(token: string): Promise<{id: string}>{
+        try{
+            const success = await jwtServise.validate(token);
+            if(!success){
+                throw new Error("Invalid token");
+            }
+            return success.sub;
+        }catch(error){
+            throw error;
+        }
     }
 
     static async update(body: Request["body"]): Promise<{ message: string; user: any; }>{
