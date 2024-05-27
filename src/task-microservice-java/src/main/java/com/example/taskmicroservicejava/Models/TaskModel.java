@@ -23,6 +23,5 @@ public class TaskModel {
     private String description;
     private String priority;
     private String status;
-//    private Date dueDate;
     private String userId;
 }
