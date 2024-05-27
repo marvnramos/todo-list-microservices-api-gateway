@@ -18,7 +18,7 @@ const authValidation = async (req: Request, res: Response, next: NextFunction) =
 	}
 
 	try {
-		const decoded:any = jwt.verify(token, process.env.JWT_SECRET!);
+		const decoded:any = jwt.verify(token, process.env.JWT_SECRET! || 'secret');
 
 		const response = await axios.get(`${user}/users/get/${decoded.sub}`);
 		if (!response.data) {
