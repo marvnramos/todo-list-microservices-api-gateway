@@ -54,6 +54,17 @@ class TaskController{
             res.status(500).json({ error: 'Internal Server Error' });
         }
     }
+    static async getByUserId(req: Request, res: Response){
+        try{
+            const id = req.body.userId;
+            console.log(id)
+            const response = await axios.get(`${task}/tasks/user/${id}`);
+            res.status(200).json(response.data);
+        }catch(error){
+            console.error('Error during get task by user id:', error);
+            res.status(500).json({ error: 'Internal Server Error' });
+        }
+    }
 }
 
 export default TaskController;
