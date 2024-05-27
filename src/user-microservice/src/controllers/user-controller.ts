@@ -35,6 +35,17 @@ class UserController {
         }
 
     }
+    static async auth(req: Request, res: Response){
+        try{
+            const {token} = req.body;
+            const auth = await userService.auth(token);
+            return res.status(200).json(auth);
+
+        }catch(err){
+            console.log(err);
+            return res.status(500).json({message: "Internal server error"})
+        }
+    }
     static async update(req: Request, res: Response){
         try{
             const id = req.params.id;
