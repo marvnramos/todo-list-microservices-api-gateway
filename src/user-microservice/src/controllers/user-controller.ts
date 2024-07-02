@@ -1,4 +1,4 @@
-import { Request, Response } from "express"
+import {Request, Response} from "express"
 import userService from '../services/user-service'
 import User from '../models/user-model'
 
@@ -43,8 +43,7 @@ class UserController {
     }
     static async update(req: Request, res: Response){
         try{
-            const id = req.params.id;
-            req.body.id = id;
+            req.body.id = req.params.id;
             
             const user = await userService.update(req.body);
             return res.status(200).json(user);
